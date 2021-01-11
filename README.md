@@ -64,5 +64,6 @@ Project Link: [https://github.com/ingranys/flying-donut](https://github.com/ingr
 ## Acknowledgements :pray:
 * [Inspired by Joma Tech](https://www.youtube.com/watch?v=sW9npZVpiMI&ab_channel=JomaTech)
 * [Based on a original idea by Andy Sloane](https://www.a1k0n.net/2011/07/20/donut-math.html)
-* [Quick review by Lex Fridman](https://www.youtube.com/watch?v=DEqXNfs_HhY&t=38s&ab_channel=LexFridman) 
-* [Github - NicolasBizzozzero/comprehensive_header](https://gist.github.com/NicolasBizzozzero/6d4ca63f8482a1af99b0ed022c13b041)
+* [Quick review by Lex Fridman](https://www.youtube.com/watch?v=DEqXNfs_HhY&t=38s&ab_channel=LexFridman)
+* [Learn WebGL - Diffuse Lighting](http://learnwebgl.brown37.net/09_lights/lights_diffuse.html)
+* [scratchapixel 2.0 - Diffuse Lambertian Shading](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/diffuse-lambertian-shading)
