@@ -69,7 +69,7 @@ def image(pixels):
     plt.show()
 
 def update3d(i, rotations, function, scat):
-    donut = scat.get_array()
+    donut = np.array(scat._offsets3d).T
     rotated_donut = function(donut,rotations)
     scat._offsets3d = (rotated_donut[:,0],rotated_donut[:,1],rotated_donut[:,2])
     return scat
