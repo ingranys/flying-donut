@@ -34,44 +34,48 @@ __status__ = "Production"
 __version__ = "0.1.0"
 
 
-import time
 import curses
 import numpy as np
 
-from utils.geom import base, donut, rotations, rotate, projection,shades
+from utils.geom import base, donut, rotations, rotate, projection, shades, pixels
 from utils.render import points, vectors, colors, image, animate3d
+from utils.console import warning, screen, reset, asciis, render
 
 
 # USER INPUTS
 X,Y,Z = base()
 R1 = 1
-R2 = 2
-n_theta = 80 #80
-n_phi = 200 #200
+radius_ratio = 2
+n_theta = 100 #80
+n_phi = 300 #200
 
 axis_A = X
 axis_B = Z
 start_angle_A = 0.5
 start_angle_B = -0.5
 
-spotlight = [1,1,8]
+spotlight = [0,2,10]
 
 n_pixels = 25
 zoom = 1.0
 
-n_frames = 100
+n_frames = 500
 speed = 1.0
 speed_ratio = 3/7 # B/A, 3/7-3/1 gives nice results
 
 preview = False
 debug = False
 
-char = [" ", ", ", "~  ", "; ", "= ", "! ", "* ", "$ ", "# ", "@ "]
-#char = [". ", ", ", "- ", ": ", "+ ", "! ", "? ", "S ", "$ ", "# "]
+char = [" ", ".", ",", ";" "+", "=", "&", "$", "#", "@"]
+#char = [".", ",", "-", ":", "+", "!", "?", "S", "$", "#"]
+#char = [".", ",", "-", "~", ":", ";", "=", "+", "!", "?", "*", "$", "%", "#", "@ "]
+
 
 
 # INDUCED PARAMETERS
+R2 = radius_ratio*R1
 donut_size = 2*(R1+R2)
+distance = donut_size/zoom
 n_points = n_phi*n_theta
 frame_height = n_pixels
 frame_width = 2*n_pixels
@@ -85,25 +89,25 @@ V_rotated_normals = rotate(V_normals, rotations(axis_A,start_angle_A,axis_B,star
 
 rotations = rotations(axis_A,speed,axis_B,speed_ratio*speed)
 
+if debug :
+    if n_points>1000:
+        warning('Debug',10)
+    points(M_cirlces,-90,135,donut_size)
+    points(M_donut,-90,135,donut_size)
+    vectors(M_donut,V_normals,-90,135,donut_size)
+    points(M_rotated_donut,-90,135,donut_size)
+    vectors(M_rotated_donut,V_rotated_normals,-90,135,donut_size)
 
-if preview:   
+if preview:  
+    if n_points>1000:
+        warning('Preview',5) 
     initial_shades, _ = shades(M_donut,V_normals,spotlight)
     rotated_shades, _ = shades(M_rotated_donut,V_rotated_normals,spotlight)
-    colors(M_donut,initial_shades,-90,135,10)
-    colors(M_rotated_donut,rotated_shades,-90,135,10)
-    animate3d(M_rotated_donut,rotations,rotate,5,10,-90,135,10)
+    colors(M_donut,initial_shades,-90,135,donut_size)
+    colors(M_rotated_donut,rotated_shades,-90,135,donut_size)
+    animate3d(M_rotated_donut,rotations,rotate,n_frames,-90,135,donut_size)
 
-if debug :
-    points(M_cirlces,-90,135,10)
-    points(M_donut,-90,135,10)
-    vectors(M_donut,V_normals,-90,135,5)
-    points(M_rotated_donut,-90,135,10)
-    vectors(M_rotated_donut,V_rotated_normals,-90,135,5)
-
-
-scr = curses.initscr()
-scr.clear()
-scr.refresh()
+scr = screen()
 
 try:
     for k in range(n_frames):
@@ -111,41 +115,22 @@ try:
         V_rotated_normals = rotate(V_rotated_normals, rotations)
         rotated_shades, light_indexes = shades(M_rotated_donut,V_rotated_normals,spotlight)
 
-        M_pixels = np.zeros((frame_height,frame_width))
-        x_donut = (np.floor(
-                    (frame_width/2)+
-                    (zoom*frame_width/donut_size)*M_rotated_donut[:,0])).astype('int')
-        y_donut = (np.floor(
-                    (frame_height/2)-
-                    (zoom*frame_height/donut_size)*M_rotated_donut[:,1])).astype('int')
-        x_indexes = np.where(np.logical_or( x_donut<0 , x_donut >= frame_width) )[0]
-        y_indexes = np.where(np.logical_or( y_donut<0 , y_donut >= frame_height)  )[0]
+        M_pixels = pixels(M_rotated_donut,rotated_shades,light_indexes,
+                            frame_height,frame_width,donut_size,zoom)
         
-        valid_index = np.setdiff1d(light_indexes,np.concatenate([x_indexes,y_indexes]))
-        for idx in valid_index:
-            x = x_donut[idx]
-            y = y_donut[idx]
-            M_pixels[y,x] = np.maximum(rotated_shades[idx],M_pixels[y,x])
-        M_ascii_pixels = [[char[int(np.floor(10*M_pixels[i,j]))] for j in range(frame_width)] for i in range(frame_height)]
+        M_asciis = asciis(M_pixels,char)
 
-        scr.addstr(0, 0, str(k) )
-        for i in range(frame_height):
-            for j in range(frame_width):
-                scr.addstr(i, j, M_ascii_pixels[i][j])
-        msg = '{0}/{1}'.format(k+1,n_frames)
-        scr.addstr(0, 0, msg )
-        scr.refresh()
+        render(M_asciis,scr,k,n_frames)
 
         if debug:
             image(M_pixels)
     
-    curses.endwin()
-
+    reset()
 except KeyboardInterrupt:
-    curses.endwin()
+    reset()
     print('Rendering has been interrupted.')
 except Exception as e:
-    curses.endwin()
+    reset()
     raise(e)
 
 

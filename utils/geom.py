@@ -65,3 +65,26 @@ def shades(M,N,s):
     lambert = projection(L,N)
     light_indexes = np.argwhere(lambert>0).T
     return lambert,light_indexes
+
+
+def pixels(M,shades,indexes,frame_height,frame_width,size,zoom):
+    M_pixels = np.zeros((frame_height,frame_width))
+
+    x_donut = (np.floor(
+                    (frame_width/2)+
+                    (zoom*frame_width/size)*M[:,0])).astype('int')
+    y_donut = (np.floor(
+                    (frame_height/2)-
+                    (zoom*frame_height/size)*M[:,1])).astype('int')
+
+    x_indexes = np.where(np.logical_or( x_donut<0 , x_donut >= frame_width) )[0]
+    y_indexes = np.where(np.logical_or( y_donut<0 , y_donut >= frame_height)  )[0]
+    xy_indexes = np.concatenate([x_indexes,y_indexes])
+
+    valid_index = np.setdiff1d(indexes,xy_indexes)
+    for idx in valid_index:
+        x = x_donut[idx]
+        y = y_donut[idx]
+        M_pixels[y,x] = np.maximum(shades[idx],M_pixels[y,x])
+
+    return M_pixels
