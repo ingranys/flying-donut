@@ -65,7 +65,8 @@ def colors(M,colors,azimut=None,elevation=None,distance=None):
 
 
 def image(pixels):
-    plt.imshow(pixels,interpolation='none',cmap='gray')
+    y, x = pixels.shape
+    plt.imshow(pixels,interpolation='none',cmap='gray',extent=[0,x,0,y],aspect=2)
     plt.show()
 
 def update3d(i, rotations, function, scat):

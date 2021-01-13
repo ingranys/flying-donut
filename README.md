@@ -50,7 +50,6 @@ $ python3 donut.py
 Distributed under the GNU General Public License v3.0. 
 
 See `LICENSE`[:link:](https://github.com/ingranys/flying-donut/blob/main/LICENSE) for more information.
-"
 
 <!-- CONTACT -->
 ## Contact :handshake:
