@@ -1,3 +1,4 @@
+import sys
 import time
 import curses
 import numpy
@@ -15,12 +16,28 @@ def warning(mode='<mode',duration=10):
     print("Moving on to the rendering.")
 
 
-def screen():
+def screen(n_pixels):
     scr = curses.initscr()
+
+    screen_height,screen_width= scr.getmaxyx()
+    frame_size = min(screen_height,numpy.floor(screen_width/2).astype(int))
+    if n_pixels<=0:
+        frame_height = frame_size
+        frame_width = 2*frame_size
+    elif n_pixels<=frame_size:
+        frame_height = n_pixels
+        frame_width = 2*n_pixels
+    else :
+        curses.endwin()
+        print('ERROR!')
+        print('Image size exceeds console size.')
+        print('Please decrease pixels number or widen console.')      
+        sys.exit()         
+
     scr.clear()
     scr.refresh()
 
-    return scr
+    return scr,frame_height,frame_width
 
 
 def reset():
@@ -40,7 +57,6 @@ def asciis(pixels,char):
 def render(ascii_characters,screen,current_frame,n_frames):
     n_rows = len(ascii_characters)
     n_columns = len(ascii_characters[0])
-    screen.addstr(0, 0, str(current_frame) )
     for i in range(n_rows):
         for j in range(n_columns):
             screen.addstr(i, j, ascii_characters[i][j])

@@ -10,7 +10,9 @@ def base():
     return X, Y, Z
 
 
-def donut(V_R1,V_R2,V_theta,n_theta,V_phi,n_phi):
+def donut(R1,R2,V_R,V_theta,n_theta,V_phi,n_phi):
+    V_R1 = R1*V_R
+    V_R2 = R2*V_R
     n_points = n_theta*n_phi
 
     theta_angles = np.linspace(0,2*np.pi,n_theta,endpoint=False)

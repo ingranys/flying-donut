@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 
-def points(M,azimut=None,elevation=None,size=10):
-    fig = plt.figure()
+def points(M,azimut=None,elevation=None,size=10,title='points'):
+    fig = plt.figure(title.upper())
     ax = fig.add_subplot(projection='3d')
     ax.scatter(M[:,0],M[:,1],M[:,2])
     ax.set_xlabel('X')
@@ -24,8 +24,8 @@ def points(M,azimut=None,elevation=None,size=10):
     plt.show()
 
 
-def vectors(M,V,azimut=None,elevation=None,size=10,length=None):
-    fig = plt.figure()
+def vectors(M,V,azimut=None,elevation=None,size=10,length=None,title='vectors'):
+    fig = plt.figure(title.upper())
     ax = fig.add_subplot(projection='3d')
     ax.quiver(M[:,0],M[:,1],M[:,2],V[:,0],V[:,1],V[:,2])
     ax.set_xlabel('X')
@@ -45,8 +45,8 @@ def vectors(M,V,azimut=None,elevation=None,size=10,length=None):
     plt.show()
 
 
-def colors(M,colors,azimut=None,elevation=None,size=10):
-    fig = plt.figure()
+def colors(M,colors,azimut=None,elevation=None,size=10,title='colors'):
+    fig = plt.figure(title.upper())
     ax = fig.add_subplot(projection='3d')
     ax.scatter(M[:,0],M[:,1],M[:,2],c=colors)
     ax.set_xlabel('X')
@@ -79,16 +79,17 @@ def update3d(i, rotations, function, scat):
     return scat
 
 
-def animate3d(donut,rotations,function,n_frames,azimut=None,elevation=None,size=10):
-    fig = plt.figure()
+def animate3d(donut,rotations,function,n_frames,azimut=None,elevation=None,size=10,title='animation'):
+    fig = plt.figure(title.upper())
     ax = fig.gca(projection='3d')
     scat = ax.scatter(donut[:,0], donut[:,1], donut[:,2])
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')   
-    ax.set_xlim([-10,10])
-    ax.set_ylim([-10,10])
-    ax.set_zlim([-10,10])
+    axis_range = [-(1+np.floor(size/2)),1+np.floor(size/2)]
+    ax.set_xlim(axis_range)
+    ax.set_ylim(axis_range)
+    ax.set_zlim(axis_range)
 
     if azimut :
         ax.azim = azimut
@@ -97,5 +98,6 @@ def animate3d(donut,rotations,function,n_frames,azimut=None,elevation=None,size=
         
     ani = animation.FuncAnimation(fig, update3d, frames=n_frames, 
                                         fargs=(rotations,function,scat))
+    ani.repeat = True
 
     plt.show()
