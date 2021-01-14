@@ -27,7 +27,6 @@ Here is a  **implementation in Python**. Enjoy :smiley:.
 
 Get a local copy up and run main script.
 
-### Installation
 1. Clone the repo
    ```sh
    git clone https://github.com/ingranys/flying-donut.git
@@ -36,12 +35,13 @@ Get a local copy up and run main script.
    ```sh
    python3 --version
    ```
+3. **Run script**.
+   ```sh
+   python3 donut.py
+   ```
 
-### Examples
-Run script **by default**.
-```
-$ python3 donut.py
-```
+## Examples
+Coming soon...
 
 
 <!-- LICENSE -->
