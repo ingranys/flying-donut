@@ -14,7 +14,7 @@ Example for smiling face : (Bytes UTF-8) \xF0\x9F\x98\x83 > (<MESSAGE>) %F0%9F%9
 You love the flying donut?
 
 <p align="center">
-  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/donut.gif" width="350">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/base.gif" width="350">
 </p>
 
 So do I! 
@@ -40,9 +40,64 @@ Get a local copy up and run main script.
    python3 donut.py
    ```
 
+<!-- EXAMPLES -->
+<!-- For .gif files, create using https://www.screentogif.com/ and edit using https://ezgif.com/ -->
 ## Examples
-Coming soon...
 
+### Modify speed (FAST VS SLOW)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/speed.gif" width="700">
+</p>
+
+### Modify aspect ratio (HIGH VS LOW)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/aspect.gif" width="700">
+</p>
+
+### Modify light source location (RIGHT VS UP)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/light.gif" width="700">
+</p>
+
+### Modify ASCII encoding (BASIC VS NEW)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/style.gif" width="700">
+</p> 
+
+### Modify rotations (Z-axis VS X-axis)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/rotations.gif" width="700">
+</p>
+
+### Modify zoom (IN VS OUT)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/zoom.gif" width="700">
+</p>
+
+### Modify size (SMALL VS LARGE)
+
+<p align="center">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/size.gif" width="700">
+</p>
+
+<!-- USAGE -->
+## Usage
+Edit parameters within **USER INPUTS** section in `donut.py` file.
+
+<p align="left">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/parameters.png" width="500">
+</p>
+
+Then **run script**.
+ ```sh
+ python3 donut.py
+ ```
 
 <!-- LICENSE -->
 ## License :scroll:
@@ -50,6 +105,7 @@ Coming soon...
 Distributed under the GNU General Public License v3.0. 
 
 See `LICENSE`[:link:](https://github.com/ingranys/flying-donut/blob/main/LICENSE) for more information.
+
 
 <!-- CONTACT -->
 ## Contact :handshake:
