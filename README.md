@@ -80,7 +80,7 @@ Get a local copy up and run main script.
   <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/zoom.gif" width="700">
 </p>
 
-### Modify size (SMALL VS LARGE)
+### Modify size (LARGE VS SMALL)
 
 <p align="center">
   <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/size.gif" width="700">
@@ -98,6 +98,16 @@ Then **run script**.
  ```sh
  python3 donut.py
  ```
+ 
+<!-- HOW IT WORKS? -->
+## How It works
+
+<p align="left">
+  <img src="https://github.com/ingranys/flying-donut/blob/main/visuals/algorithm.gif" width="500">
+</p>
+
+For further insight, enable `PREVIEW` or `DEBUG` mode.
+
 
 <!-- LICENSE -->
 ## License :scroll:
